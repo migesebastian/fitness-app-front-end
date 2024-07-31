@@ -1,100 +1,89 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { getProfile, updateProfile } from './profileService';
+import { AuthedUserContext } from '../../App'; // Adjust this import based on your project structure
 
-const Profile = ({ user, handleUpdateProfile }) => {
+const Profile = () => {
+  const [profile, setProfile] = useState(null);
+  const [error, setError] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    fitnessGoal: '',
-    profilePicture: null,
   });
-  const [isEditing, setIsEditing] = useState(false);
-  const navigate = useNavigate();
+
+  const user = useContext(AuthedUserContext);
 
   useEffect(() => {
-    if (user) {
-      setFormData({
-        name: user.name || '',
-        email: user.email || '',
-        fitnessGoal: user.fitnessGoal || '',
-        profilePicture: user.profilePicture || null,
-      });
+    const fetchProfile = async () => {
+      try {
+        const data = await getProfile(user._id);
+        setProfile(data.user);
+        setFormData({
+          name: data.user.name,
+          email: data.user.email,
+        });
+      } catch (err) {
+        setError('Failed to load profile');
+      }
+    };
+    fetchProfile();
+  }, [user._id]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedProfile = await updateProfile(user._id, formData);
+      setProfile(updatedProfile);
+      setIsEditing(false);
+    } catch (err) {
+      setError('Failed to update profile');
     }
-  }, [user]);
-
-  const handleChange = (evt) => {
-    setFormData({ ...formData, [evt.target.name]: evt.target.value });
-  };
-
-  const handleFileChange = (evt) => {
-    setFormData({ ...formData, profilePicture: evt.target.files[0] });
-  };
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    handleUpdateProfile(formData);
-    setIsEditing(false);
-    navigate('/profile'); // Navigate back to the profile page after update
   };
 
   return (
-    <main>
+    <div>
+      <h1>{profile.name}'s Profile</h1>
       {isEditing ? (
         <form onSubmit={handleSubmit}>
-          <h1>Update Profile</h1>
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="fitnessGoal">Fitness Goal</label>
-          <input
-            id="fitnessGoal"
-            name="fitnessGoal"
-            value={formData.fitnessGoal}
-            onChange={handleChange}
-          />
-          <label htmlFor="profilePicture">Profile Picture</label>
-          <input
-            id="profilePicture"
-            name="profilePicture"
-            type="file"
-            onChange={handleFileChange}
-          />
-          <button type="submit">Update Profile</button>
+          <div>
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
+          <button type="submit">Save Changes</button>
           <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
         </form>
       ) : (
         <div>
-          <h1>Profile</h1>
-          <p><strong>Name:</strong> {formData.name}</p>
-          <p><strong>Email:</strong> {formData.email}</p>
-          <p><strong>Fitness Goal:</strong> {formData.fitnessGoal}</p>
-          {formData.profilePicture && (
-            <div>
-              <img
-                src={URL.createObjectURL(formData.profilePicture)}
-                alt="Profile"
-                style={{ maxWidth: '200px' }}
-              />
-            </div>
-          )}
+          <p>Name: {profile.name}</p>
+          <p>Email: {profile.email}</p>
           <button onClick={() => setIsEditing(true)}>Edit Profile</button>
         </div>
       )}
-    </main>
+    </div>
   );
 };
 

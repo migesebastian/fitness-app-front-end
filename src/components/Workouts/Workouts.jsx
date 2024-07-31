@@ -1,41 +1,61 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { index, create } from './workoutService';
 
-const Workouts = ({ workouts, handleAddWorkout, handleUpdateWorkout }) => {
+const Workouts = () => {
+  const [workouts, setWorkouts] = useState([]);
   const [formData, setFormData] = useState({
     date: '',
     exercises: [{ name: '', weight: '', sets: '', reps: '' }]
   });
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
 
-  // Simplified handleChange function
-  const handleChange = (evt) => {
-    const { name, value, dataset } = evt.target;
-    if (name === 'date') {
-      setFormData({ ...formData, date: value });
-    } else if (dataset.index !== undefined) {
-      const index = dataset.index;
-      const updatedExercises = [...formData.exercises];
-      updatedExercises[index] = { ...updatedExercises[index], [name]: value };
-      setFormData({ ...formData, exercises: updatedExercises });
-    }
+  useEffect(() => {
+    fetchWorkouts();
+  }, []);
+
+  const fetchWorkouts = async () => {
+    const fetchedWorkouts = await index();
+    setWorkouts(fetchedWorkouts);
   };
 
-  const addExercise = () => {
-    setFormData({
-      ...formData,
-      exercises: [...formData.exercises, { name: '', weight: '', sets: '', reps: '' }]
+  const handleChange = (evt) => {
+    const { name, value, dataset } = evt.target;
+    setFormData(prevData => {
+      if (name === 'date') {
+        return { ...prevData, date: value };
+      } else if (dataset.index !== undefined) {
+        const index = parseInt(dataset.index);
+        const updatedExercises = [...prevData.exercises];
+        updatedExercises[index] = { ...updatedExercises[index], [name]: value };
+        return { ...prevData, exercises: updatedExercises };
+      }
+      return prevData;
     });
   };
 
-  const handleSubmit = (evt) => {
+  const addExercise = () => {
+    setFormData(prevData => ({
+      ...prevData,
+      exercises: [...prevData.exercises, { name: '', weight: '', sets: '', reps: '' }]
+    }));
+  };
+
+  const removeExercise = (index) => {
+    setFormData(prevData => ({
+      ...prevData,
+      exercises: prevData.exercises.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    if (selectedWorkout) {
-      handleUpdateWorkout(formData, selectedWorkout._id);
-    } else {
-      handleAddWorkout(formData);
-    }
+    await handleAddWorkout(formData);
     resetForm();
+    fetchWorkouts();
+  };
+
+  const handleAddWorkout = async (workoutData) => {
+    await create(workoutData);
   };
 
   const resetForm = () => {
@@ -43,22 +63,12 @@ const Workouts = ({ workouts, handleAddWorkout, handleUpdateWorkout }) => {
       date: '',
       exercises: [{ name: '', weight: '', sets: '', reps: '' }]
     });
-    setSelectedWorkout(null);
-    setIsEditing(false);
-  };
-
-  const startEditing = (workout) => {
-    setFormData({
-      date: workout.date,
-      exercises: workout.exercises
-    });
-    setSelectedWorkout(workout);
-    setIsEditing(true);
+    setIsAdding(false);
   };
 
   return (
     <main>
-      {!isEditing ? (
+      {!isAdding ? (
         <div>
           <h1>Workouts</h1>
           <ul>
@@ -75,15 +85,14 @@ const Workouts = ({ workouts, handleAddWorkout, handleUpdateWorkout }) => {
                     </div>
                   ))}
                 </div>
-                <button onClick={() => startEditing(workout)}>Edit Workout</button>
               </li>
             ))}
           </ul>
-          <button onClick={() => setIsEditing(true)}>Add New Workout</button>
+          <button onClick={() => setIsAdding(true)}>Add New Workout</button>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <h1>{selectedWorkout ? 'Edit Workout' : 'Log Workout'}</h1>
+          <h1>Log Workout</h1>
           <label htmlFor="date">Date</label>
           <input
             type="date"
@@ -113,6 +122,7 @@ const Workouts = ({ workouts, handleAddWorkout, handleUpdateWorkout }) => {
                 value={exercise.weight}
                 data-index={index}
                 onChange={handleChange}
+                min="0"
                 required
               />
               <label htmlFor={`sets-${index}`}>Sets</label>
@@ -123,6 +133,7 @@ const Workouts = ({ workouts, handleAddWorkout, handleUpdateWorkout }) => {
                 value={exercise.sets}
                 data-index={index}
                 onChange={handleChange}
+                min="1"
                 required
               />
               <label htmlFor={`reps-${index}`}>Reps</label>
@@ -133,12 +144,14 @@ const Workouts = ({ workouts, handleAddWorkout, handleUpdateWorkout }) => {
                 value={exercise.reps}
                 data-index={index}
                 onChange={handleChange}
+                min="1"
                 required
               />
+              <button type="button" onClick={() => removeExercise(index)}>Remove Exercise</button>
             </div>
           ))}
           <button type="button" onClick={addExercise}>Add Exercise</button>
-          <button type="submit">{selectedWorkout ? 'Update Workout' : 'Log Workout'}</button>
+          <button type="submit">Log Workout</button>
           <button type="button" onClick={resetForm}>Cancel</button>
         </form>
       )}
