@@ -1,0 +1,23 @@
+.meals {
+  background-color: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.meals ul {
+  padding: 0;
+  margin: 0;
+}
+
+.meals li {
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: var (--border-radius);
+  transition: background-color var (--transition-duration);
+}
+
+.meals li:hover {
+  background-color: var (--background-color);
+}

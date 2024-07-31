@@ -5,6 +5,9 @@ import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import SignupForm from './components/SignupForm/SignupForm';
 import SigninForm from './components/SigninForm/SigninForm';
+import Profile from './components/Profile/Profile';
+import Workouts from './components/Workouts/Workouts';
+import Meals from './components/Meals/Meals';
 import * as authService from './services/authService'; // import the authService
 
 export const AuthedUserContext = createContext(null);
@@ -23,10 +26,10 @@ const App = () => {
       <Routes>
         {user ? (
           <>
-            <Route path="/" element={<Dashboard user={user} />} />
-            <Route path="/profile" element={<Profile user={user} />} />
-            <Route path="/workouts" element={<Workouts user={user} />} />
-            <Route path="/meals" element={<Meals user={user} />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/workouts" element={<Workouts />} />
+            <Route path="/meals" element={<Meals />} />
           </>
         ) : (
           <>
