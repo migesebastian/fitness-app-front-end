@@ -11,9 +11,6 @@ const index = async () => {
   }
 };
 
-// Remove the show function as there's no corresponding route in the backend
-// const show = async (mealId) => { ... };
-
 const create = async (mealFormData) => {
   try {
     const res = await fetch(BASE_URL, {
@@ -24,6 +21,7 @@ const create = async (mealFormData) => {
       },
       body: JSON.stringify(mealFormData),
     });
+    console.log(res)
     return res.json();
   } catch (error) {
     console.log(error);

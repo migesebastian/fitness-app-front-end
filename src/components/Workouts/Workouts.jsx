@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { index, create } from './workoutService';
+import { index, create } from '../../services/workoutService';
 
 const Workouts = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -20,11 +20,12 @@ const Workouts = () => {
 
   const handleChange = (evt) => {
     const { name, value, dataset } = evt.target;
+    const index = Number(dataset.index); // Use Number() to convert to a number
+
     setFormData(prevData => {
       if (name === 'date') {
         return { ...prevData, date: value };
       } else if (dataset.index !== undefined) {
-        const index = parseInt(dataset.index);
         const updatedExercises = [...prevData.exercises];
         updatedExercises[index] = { ...updatedExercises[index], [name]: value };
         return { ...prevData, exercises: updatedExercises };
