@@ -1,61 +1,60 @@
-const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
+const BASE_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/profiles`;
 
-const getProfile = async (userId) => {
+const index = async () => {
   try {
-    const res = await fetch(`${BACKEND_URL}/profiles/${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      },
+    const res = await fetch(BASE_URL, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     });
-    const json = await res.json();
-    if (json.error) {
-      throw new Error(json.error);
-    }
-    return json.user;
-  } catch (err) {
-    throw new Error(err.message);
+    return res.json();
+  } catch (error) {
+    console.log(error);
   }
 };
 
-const updateProfile = async (userId, profileData) => {
+const show = async (userId) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/profiles/${userId}`, {
+    const res = await fetch(`${BASE_URL}/${userId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const update = async (userId, profileData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(profileData),
     });
-    const json = await res.json();
-    if (json.error) {
-      throw new Error(json.error);
-    }
-    return json;
-  } catch (err) {
-    throw new Error(err.message);
+    return res.json();
+  } catch (error) {
+    console.log(error);
   }
 };
 
-const uploadProgressPicture = async (userId, formData) => {
+const uploadProgressPicture = async (formData) => {
+  const PROGRESS_PICTURE_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/progress-pictures`;
   try {
-    const res = await fetch(`${BACKEND_URL}/progress-pictures`, {
+    const res = await fetch(PROGRESS_PICTURE_URL, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: formData,
     });
-    const json = await res.json();
-    if (json.error) {
-      throw new Error(json.error);
-    }
-    return json;
-  } catch (err) {
-    throw new Error(err.message);
+    return res.json();
+  } catch (error) {
+    console.log(error);
   }
 };
 
-export { getProfile, updateProfile, uploadProgressPicture };
+export { index, show, update, uploadProgressPicture };

@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { AuthedUserContext } from '../../App';
 import * as profileService from '../../services/profileService';
+// import './Profile.css';
 
 const Profile = () => {
   const user = useContext(AuthedUserContext);
@@ -12,11 +13,11 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const profileData = await profileService.getProfile(user._id);
+        const profileData = await profileService.show(user._id);
         setProfile(profileData);
-        console.log(profileData)
-        setEditData({ profilePicture: profileData.profilePicture, fitnessGoals: fitnessGoals.join(', ') });
-        setProgressPictures(profileData.progressPictures);
+        setEditData({ profilePicture: profileData.profilePicture, fitnessGoals: profileData.fitnessGoals.join(', ') });
+        const picturesData = await profileService.index(user._id);
+        setProgressPictures(picturesData);
       } catch (err) {
         console.error(err);
       }
@@ -38,7 +39,7 @@ const Profile = () => {
         profilePicture: editData.profilePicture,
         fitnessGoals: editData.fitnessGoals.split(',').map(goal => goal.trim())
       };
-      await profileService.updateProfile(user._id, updatedProfile);
+      await profileService.update(user._id, updatedProfile);
       setProfile(updatedProfile);
       setIsEditing(false);
     } catch (err) {
@@ -51,7 +52,7 @@ const Profile = () => {
     const formData = new FormData();
     formData.append('picture', e.target.picture.files[0]);
     try {
-      const newPicture = await profileService.uploadProgressPicture(user._id, formData);
+      const newPicture = await profileService.uploadProgressPicture(formData);
       setProgressPictures([...progressPictures, newPicture]);
     } catch (err) {
       console.error(err);
