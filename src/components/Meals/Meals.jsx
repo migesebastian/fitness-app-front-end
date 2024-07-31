@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
-import { index, create, update, deleteMeal } from './mealService';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import * as mealService from '../../services/mealService';
 
-const Meals = () => {
-  const [meals, setMeals] = useState([]);
+const MealForm = (props) => {
+  const navigate = useNavigate();
+  const { mealId } = useParams();
+  const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
     date: '',
     name: '',
@@ -11,157 +14,133 @@ const Meals = () => {
     carbs: '',
     fats: '',
   });
-  const [isEditing, setIsEditing] = useState(false);
-  const [selectedMeal, setSelectedMeal] = useState(null);
 
   useEffect(() => {
-    fetchMeals();
-  }, []);
+    const fetchMeal = async () => {
+      try {
+        if (mealId) {
+          const mealData = await mealService.show(mealId);
+          setFormData({
+            ...mealData,
+            date: formatDate(mealData.date),
+          });
+        }
+      } catch (err) {
+        updateMessage(err.message);
+      }
+    };
+    fetchMeal();
+  }, [mealId]);
 
-  const fetchMeals = async () => {
-    const fetchedMeals = await index();
-    setMeals(fetchedMeals);
+  const updateMessage = (msg) => {
+    setMessage(msg);
   };
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    setFormData(prevData => ({ ...prevData, [name]: value }));
+  const handleChange = (e) => {
+    updateMessage('');
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-    if (selectedMeal) {
-      await handleUpdateMeal(formData, selectedMeal._id);
-    } else {
-      await handleAddMeal(formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (mealId) {
+        await mealService.update(mealId, formData);
+      } else {
+        await mealService.create(formData);
+      }
+      navigate('/meals');
+    } catch (err) {
+      updateMessage(err.message);
     }
-    resetForm();
-    fetchMeals();
   };
 
-  const handleAddMeal = async (mealData) => {
-    await create(mealData);
-  };
-
-  const handleUpdateMeal = async (mealData, mealId) => {
-    await update(mealId, mealData);
-  };
-
-  const handleDeleteMeal = async (mealId) => {
-    await deleteMeal(mealId);
-    fetchMeals();
-  };
-
-  const resetForm = () => {
-    setFormData({
-      date: '',
-      name: '',
-      calories: '',
-      protein: '',
-      carbs: '',
-      fats: '',
-    });
-    setSelectedMeal(null);
-    setIsEditing(false);
-  };
-
-  const startEditing = (meal) => {
-    setFormData({
-      date: meal.date,
-      name: meal.name,
-      calories: meal.calories,
-      protein: meal.protein,
-      carbs: meal.carbs,
-      fats: meal.fats,
-    });
-    setSelectedMeal(meal);
-    setIsEditing(true);
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toISOString().split('T')[0];
   };
 
   return (
     <main>
-      {!isEditing ? (
+      <h1>{mealId ? 'Edit Meal' : 'Log Meal'}</h1>
+      <p>{message}</p>
+      <form autoComplete="off" onSubmit={handleSubmit}>
         <div>
-          <h1>Meals</h1>
-          <ul>
-            {meals.map((meal) => (
-              <li key={meal._id}>
-                <p><strong>Date:</strong> {meal.date}</p>
-                <p><strong>Meal Name:</strong> {meal.name}</p>
-                <p><strong>Calories:</strong> {meal.calories}</p>
-                <p><strong>Protein:</strong> {meal.protein} g</p>
-                <p><strong>Carbs:</strong> {meal.carbs} g</p>
-                <p><strong>Fats:</strong> {meal.fats} g</p>
-                <button onClick={() => startEditing(meal)}>Edit Meal</button>
-                <button onClick={() => handleDeleteMeal(meal._id)}>Delete Meal</button>
-              </li>
-            ))}
-          </ul>
-          <button onClick={() => setIsEditing(true)}>Add New Meal</button>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <h1>{selectedMeal ? 'Edit Meal' : 'Log Meal'}</h1>
-          <label htmlFor="date">Date</label>
+          <label htmlFor="date">Date:</label>
           <input
             type="date"
-            name="date"
+            autoComplete="off"
             id="date"
             value={formData.date}
+            name="date"
             onChange={handleChange}
-            required
           />
-          <label htmlFor="name">Meal Name</label>
+        </div>
+        <div>
+          <label htmlFor="name">Meal Name:</label>
           <input
             type="text"
-            name="name"
+            autoComplete="off"
             id="name"
             value={formData.name}
+            name="name"
             onChange={handleChange}
-            required
           />
-          <label htmlFor="calories">Calories</label>
+        </div>
+        <div>
+          <label htmlFor="calories">Calories:</label>
           <input
             type="number"
-            name="calories"
+            autoComplete="off"
             id="calories"
             value={formData.calories}
+            name="calories"
             onChange={handleChange}
-            required
           />
-          <label htmlFor="protein">Protein (g)</label>
+        </div>
+        <div>
+          <label htmlFor="protein">Protein (g):</label>
           <input
             type="number"
-            name="protein"
+            autoComplete="off"
             id="protein"
             value={formData.protein}
+            name="protein"
             onChange={handleChange}
-            required
           />
-          <label htmlFor="carbs">Carbs (g)</label>
+        </div>
+        <div>
+          <label htmlFor="carbs">Carbs (g):</label>
           <input
             type="number"
-            name="carbs"
+            autoComplete="off"
             id="carbs"
             value={formData.carbs}
+            name="carbs"
             onChange={handleChange}
-            required
           />
-          <label htmlFor="fats">Fats (g)</label>
+        </div>
+        <div>
+          <label htmlFor="fats">Fats (g):</label>
           <input
             type="number"
-            name="fats"
+            autoComplete="off"
             id="fats"
             value={formData.fats}
+            name="fats"
             onChange={handleChange}
-            required
           />
-          <button type="submit">{selectedMeal ? 'Update Meal' : 'Log Meal'}</button>
-          <button type="button" onClick={resetForm}>Cancel</button>
-        </form>
-      )}
+        </div>
+        <div>
+          <button type="submit">{mealId ? 'Update Meal' : 'Log Meal'}</button>
+          <Link to="/meals">
+            <button type="button">Cancel</button>
+          </Link>
+        </div>
+      </form>
     </main>
   );
 };
 
-export default Meals;
+export default MealForm;

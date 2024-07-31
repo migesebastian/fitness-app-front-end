@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { getProfile, updateProfile } from './profileService';
-import { AuthedUserContext } from '../../App'; // Adjust this import based on your project structure
+import { getProfile, updateProfile } from '../../services/profileService';
+import { AuthedUserContext } from '../../App'; 
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
