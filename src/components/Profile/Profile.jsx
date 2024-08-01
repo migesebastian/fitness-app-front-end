@@ -16,9 +16,6 @@ const Profile = () => {
         const profileData = await profileService.show(user._id);
         setProfile(profileData);
         console.log(profileData)
-        //setEditData({ profilePicture: profileData.profilePicture, fitnessGoals: profileData.fitnessGoals.join(', ') });
-        //const picturesData = await profileService.uploadPhoto(user._id);
-        //setProgressPictures(picturesData);
       } catch (err) {
         console.error(err);
       }
