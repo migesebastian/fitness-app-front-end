@@ -18,6 +18,11 @@ const Workouts = () => {
     setWorkouts(fetchedWorkouts);
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+  };
+
   const handleChange = (evt) => {
     const { name, value, dataset } = evt.target;
     const index = Number(dataset.index); // Use Number() to convert to a number
@@ -68,6 +73,7 @@ const Workouts = () => {
   };
 
   return (
+    <body2>
     <main>
       {!isAdding ? (
         <div>
@@ -75,7 +81,7 @@ const Workouts = () => {
           <ul>
             {workouts.map((workout) => (
               <li key={workout._id}>
-                <p><strong>Date:</strong> {workout.date}</p>
+                <p><strong>Date:</strong> {formatDate(workout.date)}</p>
                 <div>
                   {workout.exercises.map((exercise, index) => (
                     <div key={index}>
@@ -157,6 +163,17 @@ const Workouts = () => {
         </form>
       )}
     </main>
+    <div class="text-wrapper">
+    <p2>
+      Make fitness your basic. Bee Avci Gym you have been sporting since
+      $29,99 every 4 weeks and you get a free sports bag. Go for it!
+    </p2>
+    <p2>
+      Make fitness your basic. Bee Avci Gym you have been sporting since
+      $29,99 every 4 weeks and you get a free sports bag. Go for it!
+    </p2>
+  </div>
+  </body2>
   );
 };
 
