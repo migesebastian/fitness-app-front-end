@@ -1,0 +1,90 @@
+.sigin {
+    background-color: #ce4141;
+    border-radius: 20px;
+    justify-content: space-between;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+   
+  }
+ 
+  .sigin:hover {
+    color: #ce4141;
+    background-color: #e6e6e6;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    color: black;
+  }
+  
+
+  .placeholder {
+    color: rgb(255, 0, 0);
+  }
+
+
+  form button {
+    padding: 0.75rem;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  form button:hover {
+    background-color: #333333;
+  }
+
+
+  .text-wrapper {
+    position: absolute;
+    bottom: 5px;
+    overflow: hidden;
+    height: 35px;
+    width: 100%;
+    background-color: #e85c5cd0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .text-wrapper p2 {
+    color: white;
+    white-space: nowrap;
+    padding: 0 1rem;
+    letter-spacing: 2px;
+    animation: horizontal-scrolling-text 12s linear infinite;
+  }
+
+  @keyframes horizontal-scrolling-text {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  body1 {
+    display: flex;
+    justify-content: center;
+    justify-content: space-around
+  }
+
+ 
+  button {
+    margin-top: 20px;
+    background: transparent;
+    padding: 10px;
+    border: 1px solid white
+    
+  }
+ 

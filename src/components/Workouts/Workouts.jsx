@@ -73,6 +73,7 @@ const Workouts = () => {
   };
 
   return (
+    <body2>
     <main>
       {!isAdding ? (
         <div>
@@ -162,6 +163,17 @@ const Workouts = () => {
         </form>
       )}
     </main>
+    <div class="text-wrapper">
+    <p2>
+      Make fitness your basic. Bee Avci Gym you have been sporting since
+      $29,99 every 4 weeks and you get a free sports bag. Go for it!
+    </p2>
+    <p2>
+      Make fitness your basic. Bee Avci Gym you have been sporting since
+      $29,99 every 4 weeks and you get a free sports bag. Go for it!
+    </p2>
+  </div>
+  </body2>
   );
 };
 
