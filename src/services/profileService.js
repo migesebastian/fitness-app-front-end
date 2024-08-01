@@ -1,15 +1,6 @@
-const BASE_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/profiles`;
+import Profile from "../components/Profile/Profile";
 
-const index = async () => {
-  try {
-    const res = await fetch(BASE_URL, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    });
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
+const BASE_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/profiles`;
 
 const show = async (userId) => {
   try {
@@ -41,6 +32,22 @@ const update = async (userId, profileData) => {
   }
 };
 
+const uploadPhoto = async (profileData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/profiles`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(profileData),
+        });
+        return res.json();
+      } catch (error) {
+        console.log(error);
+      }
+};
+
 const uploadProgressPicture = async (formData) => {
   const PROGRESS_PICTURE_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/progress-pictures`;
   try {
@@ -57,4 +64,4 @@ const uploadProgressPicture = async (formData) => {
   }
 };
 
-export { index, show, update, uploadProgressPicture };
+export { uploadPhoto,show, update, uploadProgressPicture };
