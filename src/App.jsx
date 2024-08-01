@@ -8,7 +8,7 @@ import SigninForm from './components/SigninForm/SigninForm';
 import Meals from './components/Meals/Meals';
 import Profile from './components/Profile/Profile';
 import Workouts from './components/Workouts/Workouts';
-import './App.css'; // Import the global CSS
+import './App.css';
 
 
 export const AuthedUserContext = createContext(null);
@@ -33,9 +33,12 @@ const App = () => {
           </>
         ) : (
           <>
+          
             <Route path="/" element={<Landing />} />
+            
             <Route path="/signup" element={<SignupForm setUser={setUser} />} />
             <Route path="/signin" element={<SigninForm setUser={setUser} />} />
+          
           </>
         )}
       </Routes>
