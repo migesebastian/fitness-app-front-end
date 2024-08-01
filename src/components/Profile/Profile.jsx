@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { AuthedUserContext } from '../../App';
 import * as profileService from '../../services/profileService';
-// import './Profile.css';
+
 
 const Profile = () => {
   const user = useContext(AuthedUserContext);
@@ -15,9 +15,10 @@ const Profile = () => {
       try {
         const profileData = await profileService.show(user._id);
         setProfile(profileData);
-        setEditData({ profilePicture: profileData.profilePicture, fitnessGoals: profileData.fitnessGoals.join(', ') });
-        const picturesData = await profileService.index(user._id);
-        setProgressPictures(picturesData);
+        console.log(profileData)
+        //setEditData({ profilePicture: profileData.profilePicture, fitnessGoals: profileData.fitnessGoals.join(', ') });
+        //const picturesData = await profileService.uploadPhoto(user._id);
+        //setProgressPictures(picturesData);
       } catch (err) {
         console.error(err);
       }
@@ -42,18 +43,6 @@ const Profile = () => {
       await profileService.update(user._id, updatedProfile);
       setProfile(updatedProfile);
       setIsEditing(false);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handlePictureUpload = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('picture', e.target.picture.files[0]);
-    try {
-      const newPicture = await profileService.uploadProgressPicture(formData);
-      setProgressPictures([...progressPictures, newPicture]);
     } catch (err) {
       console.error(err);
     }
@@ -96,16 +85,6 @@ const Profile = () => {
               <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
             </form>
           )}
-          <h2>Progress Pictures</h2>
-          <form onSubmit={handlePictureUpload}>
-            <input type="file" name="picture" accept="image/*" />
-            <button type="submit">Upload</button>
-          </form>
-          <div className="progress-pictures">
-            {progressPictures.map(picture => (
-              <img key={picture._id} src={picture.pictureURL} alt="Progress" />
-            ))}
-          </div>
         </div>
       ) : (
         <p>Loading...</p>
