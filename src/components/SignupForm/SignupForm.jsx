@@ -87,10 +87,18 @@ const SignupForm = (props) => {
     </main>
 
     <div className="text-wrapper">
+<<<<<<< HEAD
     <p className="p2">
           Make fitness your basic. Bee Avci Gym you have been sporting since
           $29,99 every 4 weeks and you get a free sports bag. Go for it!
           
+=======
+        <p>
+          Make fitness your basic. Bee Avci Gym you have been sporting since
+          $29,99 every 4 weeks and you get a free sports bag. Go for it!
+        </p>
+        <p>
+>>>>>>> 91be77f5ac5e73764ee9a43dc963d58add9ffa4b
           Make fitness your basic. Bee Avci Gym you have been sporting since
           $29,99 every 4 weeks and you get a free sports bag. Go for it!
         </p>
