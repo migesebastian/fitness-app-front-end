@@ -37,7 +37,7 @@ const SignupForm = (props) => {
   };
 
   return (
-    <body1>
+    <body className="body1" >
     <main>
       <h1>Sign Up</h1>
       <p>{message}</p>
@@ -76,32 +76,31 @@ const SignupForm = (props) => {
           />
         </div>
         <div>
-          <button class="sigin" type="submit" disabled={isFormInvalid()}>
+          <button className="sigin" type="submit" disabled={isFormInvalid()}>
             Sign Up
           </button>
           <Link to="/">
-            <button class="sigin" type="button">Cancel</button>
+            <button className="sigin" type="button">Cancel</button>
           </Link>
         </div>
       </form>
     </main>
 
-    <div class="text-wrapper">
-        <p2>
+    <div className="text-wrapper">
+    <p className="p2">
           Make fitness your basic. Bee Avci Gym you have been sporting since
           $29,99 every 4 weeks and you get a free sports bag. Go for it!
-        </p2>
-        <p2>
+          
           Make fitness your basic. Bee Avci Gym you have been sporting since
           $29,99 every 4 weeks and you get a free sports bag. Go for it!
-        </p2>
+        </p>
       </div>
 
 <div id="services">
-<div class="services-container">
+<div className="services-container">
   <h1>FITNESS WITH THE AVCI GYM CERTAINTIES</h1>
-  <div class="services-list">
-    <div class="services-list">
+  <div className="services-list">
+    <div className="services-list">
       <ul1>
         <li>
           From beginners to advanced: we make sure you keep exercising .
@@ -120,7 +119,7 @@ const SignupForm = (props) => {
         </li>
       </ul1>
     </div>
-    <div class="services-list">
+    <div className="services-list">
       <li>
         Unique ProFit Gym app : schedule an appointment with your coach,
         book a group lesson, follow your results and have your training
@@ -137,7 +136,7 @@ const SignupForm = (props) => {
   </div>
 </div>
 </div>
-</body1>
+</body>
   );
 };
 

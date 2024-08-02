@@ -34,9 +34,12 @@ const SigninForm = (props) => {
 
   return (
 
-    <body1>
-        
-    <main>
+    <body>
+      
+      
+        <div id="training">
+        <div className="boxes">
+      <main className="mainsign">
       <h1>Sign In</h1>
       <p>{message}</p>
       <form autoComplete="off" onSubmit={handleSubmit}>
@@ -63,61 +66,29 @@ const SigninForm = (props) => {
           />
         </div>
         <div>
-          <button class="sigin" type="submit">Sign In</button>
+          <button className="sigin" type="submit">Sign In</button>
           <Link to="/">
-            <button class="sigin" type="button">Cancel</button>
+            <button className="sigin" type="button">Cancel</button>
           </Link>
         </div>
       </form>
     </main>
-    <div class="text-wrapper">
-        <p2>
-          Make fitness your basic. Bee Avci Gym you have been sporting since
-          $29,99 every 4 weeks and you get a free sports bag. Go for it!
-        </p2>
-        <p2>
-          Make fitness your basic. Bee Avci Gym you have been sporting since
-          $29,99 every 4 weeks and you get a free sports bag. Go for it!
-        </p2>
-      </div>
-
-      <div className="membership-box">
-          <h1><span>ALL-IN</span> MEMBERSHIP</h1>
-          <ul>
-            <li>
-              <i className="fa-regular fa-circle-check"></i> Unlimited access to the
-              Avci-Gym app with hundreds of workouts and programs
-            </li>
-            <li>
-              <i className="fa-regular fa-circle-check"></i> 50% discount on Yanga
-              Sports Water
-            </li>
-            <li>
-              <i className="fa-regular fa-circle-check"></i> Unlimited use of the
-              massage chairs in the club
-            </li>
-            <li>
-              <i className="fa-regular fa-circle-check"></i> Special app with 100+
-              cycling workouts
-            </li>
-            <li>
-              <i className="fa-regular fa-circle-check"></i> Free access to the GXR
-              Live Group Classes
-            </li>
-            <li>
-              <i className="fa-regular fa-circle-check"></i> A top quality Smart
-              Bike at your home (rental)
-            </li>
-          </ul>
-          <div className="price">$49.99 <span>/per-month</span></div>
-        
-          <Link to="/signup">
-          <button class="sigin" type="submit">Sign Up</button>
-         </Link>
-        
+    </div>
+      <div className="training-galery">
+        <div className="img-container img-1">
+          <h1>Crossfit</h1>
         </div>
-
-    </body1>
+        <div className="img-container img-2">
+          <h1>Body Building</h1>
+        </div>
+        <div className="img-container img-3">
+          <h1>Pilates</h1>
+        </div>
+      </div>
+    </div>
+     
+      
+    </body>
     
 
     

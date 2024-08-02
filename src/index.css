@@ -2,20 +2,13 @@
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  color: #000000;
+  color: #ffffff;
 }
 
 p {
-  color: #000000;
+  color: white;
 }
 
-main {
-  
-  background-color: rgba(255, 255, 255, 0.3);
-  padding: 4rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-}
 
 button {
   border-radius: 8px;
@@ -24,12 +17,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #ffffff;
+  background-color: #e85c5cd0;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #ff0000;
+  border-color: #434343;
 }
 button:focus,
 button:focus-visible {

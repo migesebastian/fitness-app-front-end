@@ -6,22 +6,21 @@ const Landing = () => {
       <>
 
     <section className="content">
-       <div>
+      
           <h3>Good Morning Champ</h3>
-          <button1 class="contact-btn" >CONTACT US</button1>
-          </div>
+          <button className="contact-btn" >CONTACT US</button>
           </section>
 
 
           <div className="subject">
-            <p1>
+            <p className="p1">
               It's a new day,
               <span>
                 a new opportunity to sculpt the best version of yourself.
                 Embrace the energy, </span>
               feel the burn, and conquer your fitness goals with unwavering
               determination.
-            </p1>
+            </p>
           </div>
         
         
@@ -33,6 +32,7 @@ const Landing = () => {
          
               <h2>Weekly Schedule</h2>
               <table>
+              <thead>
                 <tr>
                   <th>Day</th>
                   <th>Scheduled Exercise</th>
@@ -63,12 +63,14 @@ const Landing = () => {
                   <td>Weight Training</td>
                   <td>8:00 AM</td>
                 </tr>
+                </thead>
               </table>
             </div>
 
             <div className="table-wrapper class" >
               <h2>Last 5 Exercises</h2>
               <table>
+              <tbody>
                 <tr>
                   <th>Exercise</th>
                   <th>Duration</th>
@@ -93,6 +95,7 @@ const Landing = () => {
                   <td>Weight Training</td>
                   <td>50 min</td>
                 </tr>
+                </tbody>
               </table>
             </div>
             </div>
