@@ -84,19 +84,6 @@ const Profile = () => {
               <button className="upload-btn" type="button" onClick={() => setIsEditing(false)}>Cancel</button>
             </form>
           )}
-<<<<<<< HEAD
-          <h1>Progress Pictures</h1>
-          <form onSubmit={handlePictureUpload}>
-            <input  type="file" name="picture" accept="image/*" />
-            <button className="upload-btn"  type="submit">Upload</button>
-          </form>
-          <div className="progress-pictures">
-            {progressPictures.map(picture => (
-              <img key={picture._id} src={picture.pictureURL} alt="Progress" />
-            ))}
-          </div>
-=======
->>>>>>> 91be77f5ac5e73764ee9a43dc963d58add9ffa4b
         </div>
       ) : (
         <p>Loading...</p>
