@@ -90,8 +90,9 @@ const Meals = () => {
   };
 
   return (
-    <body2>
+    
     <main>
+         <section className="profile">
       {!isAdding ? (
         <div>
           <h1>Meals</h1>
@@ -109,7 +110,7 @@ const Meals = () => {
                     </div>
                   ))}
                   <p><strong>Total Calories:</strong> {calculateTotalCalories(meal.foodItems)}</p>
-                  <button onClick={() => deleteMeal(meal._id)}>Delete Meal</button>
+                  <button className="upload-btn" onClick={() => deleteMeal(meal._id)}>Delete Meal</button>
                 </div>
               </li>
             ))}
@@ -173,27 +174,28 @@ const Meals = () => {
                 min="0"
                 required
               />
-              <button type="button" onClick={() => removeFoodItem(index)}>Remove Food Item</button>
+              <button className="upload-btn" type="button" onClick={() => removeFoodItem(index)}>Remove Food Item</button>
             </div>
           ))}
-          <button type="button" onClick={addFoodItem}>Add Food Item</button>
-          <button type="submit">Log Meal</button>
-          <button type="button" onClick={resetForm}>Cancel</button>
+          <button className="upload-btn" type="button" onClick={addFoodItem}>Add Food Item</button>
+          <button className="upload-btn" type="submit">Log Meal</button>
+          <button className="upload-btn" type="button" onClick={resetForm}>Cancel</button>
         </form>
       )}
+      </section>
+      <div className="text-wrapper">
+    <p className="p2">
+          Make fitness your basic. Bee Avci Gym you have been sporting since
+          $29,99 every 4 weeks and you get a free sports bag. Go for it!
+          
+          Make fitness your basic. Bee Avci Gym you have been sporting since
+          $29,99 every 4 weeks and you get a free sports bag. Go for it!
+        </p>
+  </div>
     </main>
 
-<div class="text-wrapper">
-<p2>
-  Make fitness your basic. Bee Avci Gym you have been sporting since
-  $29,99 every 4 weeks and you get a free sports bag. Go for it!
-</p2>
-<p2>
-  Make fitness your basic. Bee Avci Gym you have been sporting since
-  $29,99 every 4 weeks and you get a free sports bag. Go for it!
-</p2>
-</div>
-</body2>
+
+
   );
 };
 

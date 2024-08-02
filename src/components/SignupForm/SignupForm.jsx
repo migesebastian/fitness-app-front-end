@@ -37,7 +37,7 @@ const SignupForm = (props) => {
   };
 
   return (
-    <body1>
+    <body className="body1" >
     <main>
       <h1>Sign Up</h1>
       <p>{message}</p>
@@ -87,21 +87,21 @@ const SignupForm = (props) => {
     </main>
 
     <div className="text-wrapper">
-        <p>
+    <p className="p2">
+          Make fitness your basic. Bee Avci Gym you have been sporting since
+          $29,99 every 4 weeks and you get a free sports bag. Go for it!
+          
           Make fitness your basic. Bee Avci Gym you have been sporting since
           $29,99 every 4 weeks and you get a free sports bag. Go for it!
         </p>
-        <p>
-          Make fitness your basic. Bee Avci Gym you have been sporting since
-          $29,99 every 4 weeks and you get a free sports bag. Go for it!
-        </p>
+
       </div>
 
 <div id="services">
 <div className="services-container">
   <h1>FITNESS WITH THE AVCI GYM CERTAINTIES</h1>
-  <div class="services-list">
-    <div class="services-list">
+  <div className="services-list">
+    <div className="services-list">
       <ul1>
         <li>
           From beginners to advanced: we make sure you keep exercising .
@@ -137,7 +137,7 @@ const SignupForm = (props) => {
   </div>
 </div>
 </div>
-</body1>
+</body>
   );
 };
 

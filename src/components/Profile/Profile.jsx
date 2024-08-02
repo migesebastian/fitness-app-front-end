@@ -46,8 +46,9 @@ const Profile = () => {
   };
 
   return (
-    <body2>
+    
     <main>
+      <section className="profile">
       <h1>{user.username}'s Profile</h1>
       {profile ? (
         <div>
@@ -79,26 +80,26 @@ const Profile = () => {
                   onChange={handleChange}
                 />
               </div>
-              <button type="submit">Save</button>
-              <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+              <button className="upload-btn" type="submit">Save</button>
+              <button className="upload-btn" type="button" onClick={() => setIsEditing(false)}>Cancel</button>
             </form>
           )}
         </div>
       ) : (
         <p>Loading...</p>
       )}
-    </main>
-    <div class="text-wrapper">
-    <p2>
-      Make fitness your basic. Bee Avci Gym you have been sporting since
-      $29,99 every 4 weeks and you get a free sports bag. Go for it!
-    </p2>
-    <p2>
-      Make fitness your basic. Bee Avci Gym you have been sporting since
-      $29,99 every 4 weeks and you get a free sports bag. Go for it!
-    </p2>
+      </section>
+      <div className="text-wrapper">
+    <p className="p2">
+          Make fitness your basic. Bee Avci Gym you have been sporting since
+          $29,99 every 4 weeks and you get a free sports bag. Go for it!
+          
+          Make fitness your basic. Bee Avci Gym you have been sporting since
+          $29,99 every 4 weeks and you get a free sports bag. Go for it!
+        </p>
   </div>
-  </body2>
+    </main>
+   
   );
 };
 
