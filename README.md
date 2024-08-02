@@ -1,6 +1,6 @@
 # Fitness App Tracker
 
-![Screenshot/Logo]()
+![Screenshot/Logo](https://i.imgur.com/jjCU8SB.png)
 
 ## App Description
 
@@ -8,7 +8,7 @@ The Fitness App Tracker is a comprehensive web application designed to help user
 
 ## Getting Started
 
-You can access the Fitness App Tracker here: [App Link]().
+You can access the Fitness App Tracker here: [App Link](https://fitness-team-app.netlify.app/signin).
 
 For detailed planning materials and progress tracking, please refer to the Trello board [here](https://trello.com/b/WfVZKZYX/fitness).
 
