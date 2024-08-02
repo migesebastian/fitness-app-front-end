@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { AuthedUserContext } from '../../App';
-import * as mealService from '../../services/mealService'; // Ensure this import is correct
-// import './Meals.css';
+import * as mealService from '../../services/mealService'; 
 
 const Meals = () => {
   const user = useContext(AuthedUserContext);
@@ -183,15 +182,7 @@ const Meals = () => {
         </form>
       )}
       </section>
-      <div className="text-wrapper">
-    <p className="p2">
-          Make fitness your basic. Bee Avci Gym you have been sporting since
-          $29,99 every 4 weeks and you get a free sports bag. Go for it!
-          
-          Make fitness your basic. Bee Avci Gym you have been sporting since
-          $29,99 every 4 weeks and you get a free sports bag. Go for it!
-        </p>
-  </div>
+  
     </main>
 
 
